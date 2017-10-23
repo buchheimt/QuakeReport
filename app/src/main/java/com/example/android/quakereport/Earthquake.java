@@ -4,16 +4,16 @@ package com.example.android.quakereport;
  * Created by buchh on 10/21/2017.
  */
 
-public class Quake {
+public class Earthquake {
 
     private double mMagnitude;
     private String mLocation;
-    private String mDate;
+    private long mTimeInMilliseconds;
 
-    public Quake(double mag, String location, String date) {
+    public Earthquake(double mag, String location, long timeInMilliseconds) {
         mMagnitude = mag;
         mLocation = location;
-        mDate = date;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 
     public double getMagnitude() {
@@ -24,7 +24,7 @@ public class Quake {
         return mLocation;
     }
 
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 }

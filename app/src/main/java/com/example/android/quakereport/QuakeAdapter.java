@@ -11,14 +11,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by buchh on 10/22/2017.
  */
 
-public class QuakeAdapter extends ArrayAdapter<Quake> {
+public class QuakeAdapter extends ArrayAdapter<Earthquake> {
 
-    public QuakeAdapter(Activity context, ArrayList<Quake> quakes) {
+    public QuakeAdapter(Activity context, ArrayList<Earthquake> quakes) {
         super(context, 0, quakes);
     }
 
@@ -30,7 +32,7 @@ public class QuakeAdapter extends ArrayAdapter<Quake> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,
                     parent, false);
         }
-        Quake currentQuake = getItem(position);
+        Earthquake currentQuake = getItem(position);
 
         TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
         magnitudeView.setText(String.format(Locale.US, "%.1f", currentQuake.getMagnitude()));
@@ -38,10 +40,24 @@ public class QuakeAdapter extends ArrayAdapter<Quake> {
         TextView locationView = (TextView) listItemView.findViewById(R.id.location);
         locationView.setText(currentQuake.getLocation());
 
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
-        dateView.setText(currentQuake.getDate());
+        Date dateObject = new Date(currentQuake.getTimeInMilliseconds());
 
+        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
+        dateView.setText(formatDate(dateObject));
+
+        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
+        timeView.setText(formatTime(dateObject));
 
         return listItemView;
+    }
+
+    public String formatDate(Date dateObject) {
+        SimpleDateFormat format = new SimpleDateFormat("MMM dd, yyyy");
+        return format.format(dateObject);
+    }
+
+    public String formatTime(Date dateObject) {
+        SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+        return format.format(dateObject);
     }
 }
