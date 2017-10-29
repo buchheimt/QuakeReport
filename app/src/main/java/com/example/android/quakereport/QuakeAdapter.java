@@ -41,7 +41,7 @@ public class QuakeAdapter extends ArrayAdapter<Earthquake> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,
                     parent, false);
         }
-        final Earthquake currentQuake = getItem(position);
+        Earthquake currentQuake = getItem(position);
 
         TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
         GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
@@ -74,15 +74,6 @@ public class QuakeAdapter extends ArrayAdapter<Earthquake> {
 
         TextView timeView = (TextView) listItemView.findViewById(R.id.time);
         timeView.setText(formatTime(dateObject));
-
-        listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(currentQuake.getLink()));
-                mContext.startActivity(i);
-            }
-        });
 
         return listItemView;
     }
